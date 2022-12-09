@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../models/contact.dart';
+import './messages_screen.dart';
 
 class SelectContactScreen extends StatelessWidget {
   static const routeName = '/select-contact';
@@ -26,6 +27,8 @@ class SelectContactScreen extends StatelessWidget {
           itemBuilder: (context, i) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: GestureDetector(
+              onTap: () => Navigator.of(context)
+                  .pushNamed(MessagesScreen.routeName, arguments: contacts[i]),
               child: ListTile(
                 title: Text(contacts[i].name),
                 leading: const Icon(
