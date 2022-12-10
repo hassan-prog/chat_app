@@ -1,5 +1,4 @@
-import 'dart:ffi';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MessageSendNavigation extends StatelessWidget {
@@ -35,6 +34,10 @@ class MessageSendNavigation extends StatelessWidget {
                     hintText: 'Send Message',
                     icon: Icon(
                       Icons.emoji_emotions_outlined,
+                    ),
+                    suffix: Icon(
+                      Icons.attach_file_outlined,
+                      color: Colors.grey,
                     ),
                   ),
                 ),
