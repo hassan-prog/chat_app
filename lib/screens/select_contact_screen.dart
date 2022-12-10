@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-import '../models/contact.dart';
 import './messages_screen.dart';
+import '../models/contacts_provider.dart';
 
 class SelectContactScreen extends StatelessWidget {
   static const routeName = '/select-contact';
 
   @override
   Widget build(BuildContext context) {
-    final contacts =
-        ModalRoute.of(context)!.settings.arguments as List<Contact>;
+    final contactsData = Provider.of<ContactsProvider>(context).contacts;
 
     return Scaffold(
       appBar: AppBar(
@@ -27,18 +26,21 @@ class SelectContactScreen extends StatelessWidget {
           itemBuilder: (context, i) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: GestureDetector(
-              onTap: () => Navigator.of(context)
-                  .pushNamed(MessagesScreen.routeName, arguments: contacts[i]),
+              onTap: () => Navigator.of(context).pushNamed(
+                  MessagesScreen.routeName,
+                  arguments: contactsData[i]),
               child: ListTile(
-                title: Text(contacts[i].name),
-                leading: const Icon(
-                  Icons.person_pin,
-                  size: 65,
+                title: Text(contactsData[i].name),
+                leading: CircleAvatar(
+                  radius: 22,
+                  backgroundImage: NetworkImage(
+                    contactsData[i].imgUrl,
+                  ),
                 ),
               ),
             ),
           ),
-          itemCount: contacts.length,
+          itemCount: contactsData.length,
         ),
       ),
     );

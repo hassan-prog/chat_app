@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import './messages_screen.dart';
 import './select_contact_screen.dart';
-import '../models/contact.dart';
+import '../models/contacts_provider.dart';
 
 class ChatsScreen extends StatelessWidget {
-  final List<Contact> contacts = [
-    Contact(name: 'hassan', msg: 'hello', date: DateTime.now(), id: '0'),
-    Contact(name: 'ahmed', msg: 'hallo', date: DateTime.now(), id: '1'),
-    Contact(name: 'mohamed', msg: 'hi', date: DateTime.now(), id: '2'),
-    Contact(name: 'ali', msg: 'hola', date: DateTime.now(), id: '3'),
-  ];
   @override
   Widget build(BuildContext context) {
+    final contactsData = Provider.of<ContactsProvider>(context).contacts;
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(
@@ -24,33 +20,49 @@ class ChatsScreen extends StatelessWidget {
             MediaQuery.of(context).padding.top,
         child: ListView.builder(
           itemBuilder: (context, i) => Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
+            padding: const EdgeInsets.symmetric(vertical: 6),
             child: GestureDetector(
-              onTap: () => Navigator.of(context)
-                  .pushNamed(MessagesScreen.routeName, arguments: contacts[i]),
+              onTap: () => Navigator.of(context).pushNamed(
+                  MessagesScreen.routeName,
+                  arguments: contactsData[i]),
               child: ListTile(
-                title: Text(contacts[i].name),
-                subtitle: Text(contacts[i].msg),
-                trailing: Text(DateFormat.yMd()
-                    .add_jm()
-                    .format(contacts[i].date)
-                    .toString()),
-                leading: const Icon(
-                  Icons.person_pin,
-                  size: 65,
+                title: Text(contactsData[i].name),
+                subtitle: Text(contactsData[i].msg),
+                trailing: Text(
+                  DateFormat.yMd()
+                      .add_jm()
+                      .format(contactsData[i].date)
+                      .toString(),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                  ),
+                ),
+                leading: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        contactsData[i].imgUrl,
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
-          itemCount: contacts.length,
+          itemCount: contactsData.length,
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context)
-              .pushNamed(SelectContactScreen.routeName, arguments: contacts);
+          Navigator.of(context).pushNamed(SelectContactScreen.routeName,
+              arguments: contactsData);
         },
-        child: Icon(Icons.chat),
+        child: const Icon(Icons.chat),
       ),
     );
   }
