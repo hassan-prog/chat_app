@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import './select_contact_screen.dart';
 import './calls_screen.dart';
 import './chats_screen.dart';
 import './communities_screen.dart';
 import './status_screen.dart';
-import '../models/contacts_provider.dart';
 
 // ignore: use_key_in_widget_constructors
 class TabsScreen extends StatefulWidget {

@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// ignore: use_key_in_widget_constructors
 class MessageSendNavigation extends StatelessWidget {
   final TextEditingController _sendMessageController = TextEditingController();
 

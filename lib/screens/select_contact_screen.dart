@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import './messages_screen.dart';
 import '../models/contacts_provider.dart';
 
+// ignore: use_key_in_widget_constructors
 class SelectContactScreen extends StatelessWidget {
   static const routeName = '/select-contact';
 
