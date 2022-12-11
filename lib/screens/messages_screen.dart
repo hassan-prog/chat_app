@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/contact.dart';
 import '../widgets/message_send_navigation.dart';
 
+// ignore: use_key_in_widget_constructors
 class MessagesScreen extends StatelessWidget {
   static const routeName = '/messages';
 
@@ -91,7 +92,53 @@ class MessagesScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(child: Text('messages')),
+      body: ListView.builder(
+        itemBuilder: (context, index) => Row(
+          children: [
+            if (!myContact.msg[index]['isMe'])
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      margin: const EdgeInsets.only(top: 15, right: 15),
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(10),
+                          topLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+                        ),
+                        color: Colors.blueGrey.shade300,
+                      ),
+                      child: Text(
+                        myContact.msg[index]['message'],
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            else
+              Container(
+                padding: const EdgeInsets.all(12),
+                margin: const EdgeInsets.only(left: 15, top: 15),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
+                  ),
+                  color: Colors.blueGrey.shade100,
+                ),
+                child: Text(
+                  myContact.msg[index]['message'],
+                ),
+              ),
+          ],
+        ),
+        itemCount: myContact.msg.length,
+      ),
       bottomSheet: MessageSendNavigation(),
     );
   }

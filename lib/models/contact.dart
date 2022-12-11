@@ -1,6 +1,8 @@
+import './message.dart';
+
 class Contact {
   final String name;
-  final String msg;
+  final List<Map> msg;
   final DateTime date;
   final String id;
   final String imgUrl;

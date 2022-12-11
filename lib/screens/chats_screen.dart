@@ -6,6 +6,7 @@ import './messages_screen.dart';
 import './select_contact_screen.dart';
 import '../models/contacts_provider.dart';
 
+// ignore: use_key_in_widget_constructors
 class ChatsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -23,11 +24,12 @@ class ChatsScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 6),
             child: GestureDetector(
               onTap: () => Navigator.of(context).pushNamed(
-                  MessagesScreen.routeName,
-                  arguments: contactsData[i]),
+                MessagesScreen.routeName,
+                arguments: contactsData[i],
+              ),
               child: ListTile(
                 title: Text(contactsData[i].name),
-                subtitle: Text(contactsData[i].msg),
+                subtitle: Text(contactsData[i].msg.last['message']),
                 trailing: Text(
                   DateFormat.yMd()
                       .add_jm()
